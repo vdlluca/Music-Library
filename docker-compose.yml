@@ -1,0 +1,19 @@
+services:
+  seedbox:
+    build:
+      context: seedbox
+      dockerfile: Dockerfile
+      args:
+          RPC_USER: $RPC_USER
+          RPC_PASSW: $RPC_PASSW
+    image: music-library-seedbox
+    container_name: music-library-seedbox
+    env_file:
+      - .env
+    ports: 
+      - $PEER_PORT:51413 # PEER PORT
+      - $RPC_PORT:9091 # RPC PORT
+    volumes:
+      - $MEDIA_DIR:/media
+      - $TORRENT_DIR:/torrents
+    restart: always
