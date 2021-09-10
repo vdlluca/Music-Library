@@ -32,6 +32,5 @@
     "speed-limit-up-enabled": false,
     "start-added-torrents": true,
     "trash-original-torrent-files": false,
-    "umask": 45,
-    "upload-limit-enabled": false
+    "umask": 0
 }
