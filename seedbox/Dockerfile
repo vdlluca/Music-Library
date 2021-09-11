@@ -11,6 +11,8 @@ VOLUME /media/done /torrents
 
 EXPOSE 51413/tcp 9091/tcp
 
+HEALTHCHECK --interval=5m --timeout=3s --start-period=60s CMD transmission-remote -n ${RPC_USER}:${RPC_PASSW} -si
+
 
 RUN apk --no-cache add transmission-daemon transmission-cli
 RUN mkdir -p /media/downloading /transmission/conf.d
