@@ -15,10 +15,18 @@ HEALTHCHECK --interval=5m --timeout=3s --start-period=60s CMD transmission-remot
 
 
 RUN apk --no-cache add transmission-daemon transmission-cli
+
 RUN mkdir -p /media/downloading /transmission/conf.d
 COPY ./settings.json /transmission/conf.d
-RUN sed -i "s,\$RPC_USER,${RPC_USER}," /transmission/conf.d/settings.json && sed -i "s,\$RPC_PASSW,${RPC_PASSW}," /transmission/conf.d/settings.json
+RUN chown -R 2000:2000 /media/downloading /transmission/conf.d
+RUN sed -i "s,\$RPC_USER,${RPC_USER}," /transmission/conf.d/settings.json && \
+    sed -i "s,\$RPC_PASSW,${RPC_PASSW}," /transmission/conf.d/settings.json
+
 COPY ./start.sh /
+RUN chmod +x /start.sh
+
+RUN adduser seedbox -s /sbin/nologin -D -H -u 2000
+USER seedbox
 
 
 CMD ./start.sh
