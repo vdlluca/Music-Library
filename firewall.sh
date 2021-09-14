@@ -86,3 +86,9 @@ iptables -t filter -A DOCKER-USER -j DROP
 
 # Save rules to configuration file
 iptables-save -f /etc/iptables/iptables.rules
+
+
+# Disable IPv6
+echo "net.ipv6.conf.all.disable_ipv6 = 1" > /etc/sysctl.d/40-ipv6.conf
+echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.d/40-ipv6.conf
+sysctl -p /etc/sysctl.d/40-ipv6.conf
