@@ -10,6 +10,8 @@ services:
     container_name: ${APP_NAME}-seedbox
     env_file:
       - .env
+    networks:
+      - seedbox_net
     ports: 
       - ${PEER_PORT}:51413 # PEER PORT
       - ${RPC_PORT}:9091 # RPC PORT
@@ -17,3 +19,11 @@ services:
       - ${MEDIA_DIR}:/media/done
       - ${TORRENT_DIR}:/torrents
     restart: always
+
+networks:
+  seedbox_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1
