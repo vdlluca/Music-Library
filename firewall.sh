@@ -82,3 +82,7 @@ fi
 
 # Default drop policy for others
 iptables -t filter -A DOCKER-USER -j DROP
+
+
+# Save rules to configuration file
+iptables-save -f /etc/iptables/iptables.rules
